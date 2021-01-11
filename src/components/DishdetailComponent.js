@@ -12,6 +12,10 @@ class DishDetail extends Component {
         }
     }
 
+    onDishSelect(dish) {
+        this.setState({selectedDish: dish});
+    }
+
     renderDish(dish) {
         
         if(dish != null) {
@@ -33,11 +37,45 @@ class DishDetail extends Component {
         }
     }
 
+    renderComments(comments) {
+        if(comments != null) {
+            return(
+                <div className="col-14 col-md-5 m-1">
+                    <h4>Comments</h4>
+                    <div tag="li">
+                        {comments}
+                    </div>
+                </div>
+            );
+        } else {
+            return(
+                <div></div>
+            );
+        }
+    }
+
     render() {
+
+        if(this.props.selectedDish != null) {
+            var commentsArray = this.props.selectedDish.comments.map((comment) => {
+                return(
+                    <div>
+                        <p>{comment.comment}</p>
+                        <p>--{comment.author} , {comment.date}</p>
+                    </div>
+                );
+            })
+        } else {
+            return(
+                <div></div>
+            );
+        }
+        
 
             return(
                 <div className="row">
                     {this.renderDish(this.props.selectedDish)}
+                    {this.renderComments(commentsArray)}
                 </div>
                 
             )         
