@@ -3,25 +3,21 @@ import { CardText, Card, CardBody, CardTitle, CardImg } from "reactstrap";
 
 class DishDetail extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            selectedDish: null
-        }
+    componentDidMount() {
+        console.log('Dishdetail Component componentDidMount is invoked');
     }
 
-    onDishSelect(dish) {
-        this.setState({selectedDish: dish});
+    componentDidUpdate() {
+        console.log('Dishdetail Component componentDidUpdate is invoked');
     }
 
     renderDish(dish) {
         
         if(dish != null) {
             return(
-                <div key={dish.id} className="col-12 col-md-5 m-1">
+                <div className="col-12 col-md-5 m-1">
                     <Card>
-                        <CardImg width="100%" src={dish.image} alt={dish.name}/>
+                        <CardImg top src={dish.image} alt={dish.name}/>
                         <CardBody>
                             <CardTitle heading>{dish.name}</CardTitle>
                             <CardText>{dish.description}</CardText>
@@ -41,9 +37,16 @@ class DishDetail extends Component {
             return(
                 <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
-                    <div tag="li">
-                        {comments}
-                    </div>
+                    <ul className="list-unstyled">
+                        {comments.map((comment) => {
+                            return(
+                                <li key={comment.id}>
+                                    <p>{comment.comment}</p>
+                                    <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+                                </li>
+                            );
+                        })}
+                    </ul>
                 </div>
             );
         } else {
@@ -55,33 +58,24 @@ class DishDetail extends Component {
 
     render() {
 
-        if(this.props.selectedDish != null) {
-            var commentsArray = this.props.selectedDish.comments.map((comment) => {
-                return(
-                    <div className="container">
-                        <p>{comment.comment}</p>
-                        <p>--{comment.author} , {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
-                    </div>
-                   
-                );
-            })
-        } else {
-            return(
-                <div></div>
-            );
-        }
-        
+        console.log('Dishdetail Component render invoked');
 
+        if(this.props.selectedDish != null) {
             return(
                 <div className="container">
                     <div className="row">
                         {this.renderDish(this.props.selectedDish)}
-                        {this.renderComments(commentsArray)}
+                        {this.renderComments(this.props.selectedDish.comments)}
                     </div>
                 </div>
-                
-                
-            )         
+                   
+            );
+            
+        } else {
+            return(
+                <div></div>
+            );
+        }       
         
     }
 }
