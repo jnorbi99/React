@@ -11,29 +11,27 @@ class Main extends Component{
 
     this.state = {
       dishes: DISHES,
-      seletedDish: null
+      selectedDish: null
     };
   } 
 
-  onDishSelect(dishId) {
-    this.setState({selectedDish: dishId});
-}
+    onDishSelect(dishId) {
+        this.setState({selectedDish: dishId});
+    }
   
-  render() {
-    return (
-      <div>
-        <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
-          </div>
-        </Navbar>
-        <Menu dishes={this.state.dishes}
-            onClick={(dishId) => this.onDishSelect(dishId)}/>
-        <DishDetail seletedDish={this.state.dishes.filter((dish) => 
-            dish.id === this.state.selectedDish)[0]}/>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <Navbar dark color="primary">
+                    <div className="container">
+                        <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
+                    </div>
+                </Navbar>
+                <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)}/>
+                <DishDetail selectedDish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}/>
+            </div>
+        );
+    }
   
 }
 
