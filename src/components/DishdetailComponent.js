@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { CardText, Card, CardBody, CardTitle, CardImg } from "reactstrap";
-import { Media } from 'reactstrap';
 
 class DishDetail extends Component {
 
@@ -40,7 +39,7 @@ class DishDetail extends Component {
     renderComments(comments) {
         if(comments != null) {
             return(
-                <div className="col-14 col-md-5 m-1">
+                <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
                     <div tag="li">
                         {comments}
@@ -59,10 +58,11 @@ class DishDetail extends Component {
         if(this.props.selectedDish != null) {
             var commentsArray = this.props.selectedDish.comments.map((comment) => {
                 return(
-                    <div>
+                    <div className="container">
                         <p>{comment.comment}</p>
-                        <p>--{comment.author} , {comment.date}</p>
+                        <p>--{comment.author} , {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
                     </div>
+                   
                 );
             })
         } else {
@@ -73,10 +73,13 @@ class DishDetail extends Component {
         
 
             return(
-                <div className="row">
-                    {this.renderDish(this.props.selectedDish)}
-                    {this.renderComments(commentsArray)}
+                <div className="container">
+                    <div className="row">
+                        {this.renderDish(this.props.selectedDish)}
+                        {this.renderComments(commentsArray)}
+                    </div>
                 </div>
+                
                 
             )         
         
