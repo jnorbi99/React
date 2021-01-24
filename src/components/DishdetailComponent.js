@@ -12,16 +12,23 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
             super(props);
     
             this.state = {
+                isNavOpen: false,
                 isModalOpen: false
             };
     
             this.toggleModal = this.toggleModal.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
         }
 
         toggleModal() {
             this.setState({
                 isModalOpen: !this.state.isModalOpen
             });
+        }
+
+        handleSubmit(values) {
+            this.toggleModal();
+            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
         }
 
         render() {
@@ -33,7 +40,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                     <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                         <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                         <ModalBody>
-                            <LocalForm onSubmit={this.handleLogin}>
+                            <LocalForm onSubmit={this.handleSubmit}>
                                 <Row >
                                     <Col>
                                         <Label htmlFor="rating">Rating</Label>
@@ -82,7 +89,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                                 </Row>
                                 <Row>
                                     <Col>
-                                    <Control.textarea model=".message" id="message" name="message"
+                                    <Control.textarea model=".comment" id="comment" name="comment"
                                         rows="6"
                                         className="form-control" />
                                     </Col>
@@ -92,7 +99,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <Button type="submit" value="submit" color="primary">Submit</Button>
+                                        <Button type="submit" value="submit" className="bg-primary">Submit</Button>
                                     </Col>
                                 </Row>
                             </LocalForm>
@@ -126,7 +133,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
         }
     }
 
-    function RenderComments({comments}) {
+    function RenderComments({comments, addComment, dishId}) {
         if(comments != null) {
             return(
                 <div className="col-12 col-md-5 m-1">
@@ -141,7 +148,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                             );
                         })}
                     </ul>
-                    <CommentForm />
+                    <CommentForm dishId={dishId} addComment={addComment} />
                 </div>
             );
         } else {
@@ -170,7 +177,9 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                     </div>
                     <div className="row">
                             <RenderDish dish={props.selectedDish}/>
-                            <RenderComments comments={props.comments} />
+                            <RenderComments comments={props.comments}
+                                addComment={props.addComment}
+                                dishId={props.selectedDish.id} />
                     </div>
                 </div>
                    
