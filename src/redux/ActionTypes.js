@@ -7,4 +7,9 @@ export const COMMENTS_FAILED = 'COMMENTS_FAILED';
 export const PROMOS_LOADING = 'PROMOS_LOADING';
 export const ADD_PROMOS = 'ADD_PROMOS';
 export const PROMOS_FAILED = 'PROMOS_FAILED';
+export const ADD_LEADERS = 'ADD_LEADERS';
+export const LEADRES_LOADING = 'LEADRES_LOADING';
+export const LEADERS_FAILED = 'LEADERS_FAILED';
+
+
 
