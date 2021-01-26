@@ -10,6 +10,7 @@ export const PROMOS_FAILED = 'PROMOS_FAILED';
 export const ADD_LEADERS = 'ADD_LEADERS';
 export const LEADRES_LOADING = 'LEADRES_LOADING';
 export const LEADERS_FAILED = 'LEADERS_FAILED';
-
+export const ADD_FEEDBACK = 'ADD_FEEDBACK';
+export const FEEDBACK_FAILED = 'FEEDBACK_FAILED';
 
 
